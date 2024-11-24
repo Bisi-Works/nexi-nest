@@ -1,0 +1,35 @@
+
+### get user passcode
+POST http://localhost:3000/auth/get-passcode
+Content-Type: application/json
+
+{
+    "email": "john.doe@example.com"
+}
+
+### login user
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "john.doe@example.com",
+    "passcode": "6b325c"
+}
+
+### first access
+POST http://localhost:3000/auth/first-access
+Content-Type: application/json
+
+{
+    "user": {
+        "fullName": "Luan Lorem Ipsum",
+        "email": "luan@lorem.ipsum"
+    },
+    "company": {
+        "companyName": "Lorem Ipsum",
+        "fantasyName": "Lorem Ipsum",
+        "logoUrl": "https://www.example.com/logo.png",
+        "cnpj": "42.285.990/0001-00",
+        "phone": "1234567890"
+    }
+}

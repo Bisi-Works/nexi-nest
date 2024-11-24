@@ -1,0 +1,28 @@
+### list companys
+GET http://localhost:3000/role
+
+### get role
+GET http://localhost:3000/role/1
+
+### create role
+
+POST http://localhost:3000/role
+Content-Type: application/json
+
+{
+    "name": "Luan Sabino LTDA",
+    "companyId": 1,
+    "permissions": "{\"teste\": \"1234\"}"
+    
+}
+
+### update role
+PATCH http://localhost:3000/role/3
+Content-Type: application/json
+
+{
+    "name": "Luan Sabino LTDA"
+}
+
+### delete roles
+DELETE http://localhost:3000/role/3

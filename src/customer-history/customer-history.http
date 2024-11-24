@@ -1,0 +1,28 @@
+### list customer-historys
+GET http://localhost:3000/customer-history
+
+### get customer-history
+GET http://localhost:3000/customer-history/1
+
+### create customer-history
+
+POST http://localhost:3000/customer-history
+Content-Type: application/json
+
+{
+    "description": "TESTE CUSTOMER HISTORY",
+    "body": "{\"name\":\"Luan Sabino\"}",
+    "customerId": 1,
+    "userId": 1
+}
+
+### update customer-history
+PATCH http://localhost:3000/customer-history/4
+Content-Type: application/json
+
+{
+    "customer-historyName": "Luan Sabino LTDA"
+}
+
+### delete customer-historys
+DELETE http://localhost:3000/customer-history/3

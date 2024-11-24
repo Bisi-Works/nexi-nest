@@ -1,0 +1,24 @@
+### list proposal-workflows
+GET http://localhost:3000/proposal-workflow
+
+### get proposal-workflow
+GET http://localhost:3000/proposal-workflow/1
+
+### create proposal-workflow
+POST http://localhost:3000/proposal-workflow
+Content-Type: application/json
+
+{
+  "description": "Lorem ipsum dolor sit amet",
+  "message": "Lorem ipsum dolor sit amet",
+  "body": "{ \"rentalAgencyId\": 1, \"customerId\": 1 }",
+  "userId": 1,
+  "proposalId": 1
+}
+
+
+### update proposal-workflow
+### NEED POSTMAN or INSOMNIA
+
+### delete proposal-workflows
+DELETE http://localhost:3000/proposal-workflow/3

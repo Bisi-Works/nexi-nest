@@ -1,0 +1,23 @@
+### list proposal-historys
+GET http://localhost:3000/proposal-history
+
+### get proposal-history
+GET http://localhost:3000/proposal-history/1
+
+### create proposal-history
+POST http://localhost:3000/proposal-history
+Content-Type: application/json
+
+{
+  "description": "Lorem ipsum dolor sit amet",
+  "body": "{ \"rentalAgencyId\": 1, \"customerId\": 1 }",
+  "userId": 1,
+  "proposalId": 1
+}
+
+
+### update proposal-history
+### NEED POSTMAN or INSOMNIA
+
+### delete proposal-historys
+DELETE http://localhost:3000/proposal-history/3

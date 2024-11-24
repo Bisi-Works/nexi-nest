@@ -1,0 +1,296 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id          Int        @id @default(autoincrement())
+  logoUrl     String?
+  companyName String
+  fantasyName String?
+  cnpj        String     @unique
+  phone       String
+  enabled     Boolean    @default(true)
+  roles       Role[]
+  users       User[]
+  customers   Customer[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Role {
+  id          Int      @id @default(autoincrement())
+  name        String
+  permissions Json?
+  companyId   Int
+  company     Company  @relation(fields: [companyId], references: [id])
+  users       User[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model User {
+  id               Int                @id @default(autoincrement())
+  fullName         String
+  email            String             @unique
+  roleId           Int
+  companyId        Int
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  role             Role               @relation(fields: [roleId], references: [id])
+  company          Company            @relation(fields: [companyId], references: [id])
+  userPasscode     UserPasscode[]
+  customers        Customer[]
+  Contract         Contract[]
+  HealthIndication HealthIndication[]
+  CustomerHistory  CustomerHistory[]
+  ProposalHistory  ProposalHistory[]
+  ProposalWorkflow ProposalWorkflow[]
+}
+
+model UserPasscode {
+  id        Int      @id @default(autoincrement())
+  passcode  String
+  used      Boolean  @default(false)
+  userId    Int      @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Customer {
+  id                       Int               @id @default(autoincrement())
+  personType               PersonType
+  fullName                 String?
+  motherName               String?
+  rg                       String?
+  cpf                      String?
+  cnpj                     String?
+  birthdayDate             DateTime?
+  email                    String?
+  cep                      String?
+  uf                       String?
+  city                     String?
+  address                  String?
+  addressNumber            String?
+  addressComplement        String?
+  phone                    String?
+  homePhone                String?
+  earnings                 Decimal?
+  maritalStatus            String?
+  jobTitle                 String?
+  workplace                String?
+  companyTime              String?
+  nationality              String?
+  cnhCategory              String?
+  cnhValidity              DateTime?
+  gender                   String?
+  companyActivityStartDate DateTime?
+  firstCNHDate             DateTime?
+  jobType                  String?
+  companyName              String?
+  fantasyName              String?
+  companyCNPJ              String?
+  companyCep               String?
+  companyUF                String?
+  companyCity              String?
+  companyAddress           String?
+  companyAddressNumber     String?
+  companyAddressComplement String?
+  companyPhone             String?
+  companyEmail             String?
+  companyType              String?
+  financialContactNumber   String?
+  financialContactEmail    String?
+  financialContactName     String?
+  drivingLicenseURL        String?
+  selfieURL                String?
+  socialContractURL        String?
+  userId                   Int
+  companyId                Int
+  createdAt                DateTime          @default(now())
+  updatedAt                DateTime          @updatedAt
+  CustomerHistory          CustomerHistory[]
+  user                     User              @relation(fields: [userId], references: [id])
+  company                  Company           @relation(fields: [companyId], references: [id])
+  proposals                Proposal[]
+  contract                 Contract[]
+}
+
+model CustomerHistory {
+  id          Int      @id @default(autoincrement())
+  description String
+  body        Json
+  customerId  Int
+  userId      Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  customer    Customer @relation(fields: [customerId], references: [id])
+  madedBy     User     @relation(fields: [userId], references: [id])
+}
+
+model RentalAgency {
+  id           Int            @id @default(autoincrement())
+  name         String
+  logoURL      String?
+  enabled      Boolean        @default(true)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  proposals    Proposal[]
+  VehicleOffer VehicleOffer[]
+}
+
+model Proposal {
+  id                             Int                @id @default(autoincrement())
+  notes                          String?
+  status                         String?
+  vehicleModel                   String?
+  carColor                       String?
+  plateEnd                       String?
+  additionalCar                  Boolean?
+  contractTermMonths             String?
+  kmPackage                      String?
+  pickupStore                    String?
+  paymentMethod                  String?
+  externalProposalId             String?
+  mainDriver                     String?
+  installmentAnticipationQty     Decimal?
+  vehicleQty                     Decimal?
+  installmentAmount              Decimal?
+  deliveryPrice                  Decimal?
+  incomeProofURL                 String?
+  addressProofURL                String?
+  addtionalDocumentsURL          String?
+  previousYearBalanceURL         String?
+  currentYearBalanceURL          String?
+  previousYearIncomeStatementURL String?
+  currentYearIncomeStatementURL  String?
+  signedRegistrationFormURL      String?
+  rentalAgencyId                 Int
+  customerId                     Int
+  createdAt                      DateTime           @default(now())
+  updatedAt                      DateTime           @updatedAt
+  rentalAgency                   RentalAgency       @relation(fields: [rentalAgencyId], references: [id])
+  Customer                       Customer           @relation(fields: [customerId], references: [id])
+  Contract                       Contract?
+  ProposalHistory                ProposalHistory[]
+  ProposalWorkflow               ProposalWorkflow[]
+}
+
+model ProposalHistory {
+  id          Int      @id @default(autoincrement())
+  description String
+  body        Json
+  proposalId  Int
+  userId      Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  proposal    Proposal @relation(fields: [proposalId], references: [id])
+  madedBy     User     @relation(fields: [userId], references: [id])
+}
+
+model ProposalWorkflow {
+  id          Int      @id @default(autoincrement())
+  description String
+  message     String?
+  body        Json?
+  proposalId  Int
+  userId      Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  proposal    Proposal @relation(fields: [proposalId], references: [id])
+  madedBy     User     @relation(fields: [userId], references: [id])
+}
+
+model Contract {
+  id                     Int      @id @default(autoincrement())
+  expectedContractMonths Int?
+  proposalId             Int      @unique
+  customerId             Int
+  userId                 Int
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+  proposal               Proposal @relation(fields: [proposalId], references: [id])
+  customer               Customer @relation(fields: [customerId], references: [id])
+  user                   User     @relation(fields: [userId], references: [id])
+}
+
+model HealthIndication {
+  id                     Int      @id @default(autoincrement())
+  fullName               String
+  phone                  String
+  quotationForCnpj       String?
+  agesAndRelationship    String?
+  serviceRegion          String?
+  hasHealthPlan          String?
+  currentPlanName        String?
+  currentPlanMonthlyCost String?
+  planLevel              String?
+  wardApartmentHasCopar  String?
+  status_rd              String?
+  userId                 Int      @unique
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+  user                   User     @relation(fields: [userId], references: [id])
+}
+
+model VehicleBrand {
+  id           Int            @id @default(autoincrement())
+  name         String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  VehicleModel VehicleModel[]
+}
+
+model VehicleModel {
+  id             Int              @id @default(autoincrement())
+  name           String
+  vehicleBrandId Int
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  vehicleBrand   VehicleBrand     @relation(fields: [vehicleBrandId], references: [id])
+  VehicleVersion VehicleVersion[]
+}
+
+model VehicleVersion {
+  id             Int            @id @default(autoincrement())
+  name           String
+  year           String?
+  imageURL       String?
+  vehicleModelId Int
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  vehicleModel   VehicleModel   @relation(fields: [vehicleModelId], references: [id])
+  VehicleOffer   VehicleOffer[]
+}
+
+model VehicleOffer {
+  id               Int            @id @default(autoincrement())
+  term             String?
+  km               String?
+  personType       PersonType
+  price            Decimal?
+  discountedPrice  Decimal?
+  rentalAgencyId   Int
+  vehicleVersionId Int
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  rentalAgency     RentalAgency   @relation(fields: [rentalAgencyId], references: [id])
+  vehicleVersion   VehicleVersion @relation(fields: [vehicleVersionId], references: [id])
+}
+
+enum PersonType {
+  PF
+  PJ
+  PF_PJ
+}

@@ -1,0 +1,26 @@
+### list rental-agencys
+GET http://localhost:3000/rental-agency
+
+### get rental-agency
+GET http://localhost:3000/rental-agency/1
+
+### create rental-agency
+
+POST http://localhost:3000/rental-agency
+Content-Type: application/json
+
+{
+    "name": "Localiza LTDA",
+    "logoURL": "https://www.localiza.com/brasil/pt-br"
+}
+
+### update rental-agency
+PATCH http://localhost:3000/rental-agency/4
+Content-Type: application/json
+
+{
+    "rental-agencyName": "Luan Sabino LTDA"
+}
+
+### delete rental-agencys
+DELETE http://localhost:3000/rental-agency/3

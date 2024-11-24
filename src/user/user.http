@@ -1,0 +1,27 @@
+### list users
+GET http://localhost:3000/user
+
+### list user
+GET http://localhost:3000/user/1
+
+### create user
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+    "fullName": "Luan Phylipe Sabino",
+    "email": "luanphy.y@gmail.com",
+    "roleId": 1,
+    "companyId": 1
+}
+
+### update user
+PATCH http://localhost:3000/user/1
+Content-Type: application/json
+
+{
+    "fullName": "Luan Sabino"
+}
+
+### delete roles
+DELETE http://localhost:3000/user/3

@@ -1,0 +1,15 @@
+### list customers
+GET http://localhost:3000/customer
+
+### get customer
+GET http://localhost:3000/customer/1
+
+### create customer
+### NEED POSTMAN or INSOMNIA
+
+
+### update customer
+### NEED POSTMAN or INSOMNIA
+
+### delete customers
+DELETE http://localhost:3000/customer/3

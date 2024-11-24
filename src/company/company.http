@@ -1,0 +1,27 @@
+### list companys
+GET http://localhost:3000/company
+
+### get company
+GET http://localhost:3000/company/1
+
+### create company
+
+POST http://localhost:3000/company
+Content-Type: application/json
+
+{
+    "companyName": "Luan Sabino LTDA",
+    "cnpj": "64.578.055/0001-66",
+    "phone": "14996720397"
+}
+
+### update company
+PATCH http://localhost:3000/company/4
+Content-Type: application/json
+
+{
+    "companyName": "Luan Sabino LTDA"
+}
+
+### delete companys
+DELETE http://localhost:3000/company/3

@@ -1,0 +1,25 @@
+### list users passcodes
+GET http://localhost:3000/user-passcode
+
+### get user passcode
+GET http://localhost:3000/user-passcode/1
+
+### create user passcode
+
+POST http://localhost:3000/user-passcode
+Content-Type: application/json
+
+{
+    "userId": 1
+}
+
+### update user passcode
+PATCH http://localhost:3000/user-passcode/1
+Content-Type: application/json
+
+{
+    "passcode": "loremi"
+}
+
+### delete user passcode
+DELETE http://localhost:3000/user-passcode/3
